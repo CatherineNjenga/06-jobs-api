@@ -1,0 +1,277 @@
+openapi: 3.0.0
+info:
+  title: Blogs API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://blogs-api-de33.onrender.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: jane
+                  email: janedoe@gmail.com
+                  password: secret
+            example:
+              name: jane
+              email: janedoe@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: janedoe@gmail.com
+                  password: secret
+            example:
+              email: janedoe@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /blogs:
+    post:
+      tags:
+      - Blogs
+      summary: Create Blog
+      operationId: CreateBlog
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateBlogRequest'
+              - example:
+                  category: career
+                  writtenBy: Pete
+                  title: Back-end engineering with Express
+                  blogPost: It amazing that as a web developer, I am able to use my JavaScript skills to build a server
+                  comments: 10
+            example:
+              category: career
+              writtenBy: Pete
+              title: Back-end engineering with Express
+              blogPost: It amazing that as a web developer, I am able to use my JavaScript skills to build a server
+              comments: 10
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Blogs
+      summary: Get All Blogs
+      operationId: GetAllBlogs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /blogs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The blog ID
+    get:
+      tags:
+      - Blogs
+      summary: Get Blog
+      operationId: GetBlog
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      tags:
+      - Blogs
+      summary: Update Blog
+      operationId: UpdateBlog
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateBlogRequest'
+              - example:
+                  category: book review
+                  writtenBy: Jane Doe
+                  title: Back-end engineering with Express
+                  blogPost: It amazing that as a web developer, I am able to use my JavaScript skills to build a server
+                  comments: 10
+            example:
+              category: book review
+              writtenBy: Jane Doe
+              title: Back-end engineering with Express
+              blogPost: It amazing that as a web developer, I am able to use my JavaScript skills to build a server
+              comments: 10
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Blogs
+      summary: Delete Blog
+      operationId: DeleteBlog
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: jane
+        email: janedoe@gmail.com
+        password: secret
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: janedoe@gmail.com
+        password: secret
+    CreateBlogRequest:
+      title: CreateBlogRequest
+      required:
+      - category
+      - writtenBy
+      - title
+      - blogPost
+      - comments
+      type: object
+      properties:
+        category:
+          type: string
+        writtenBy:
+          type: string
+        title:
+          type: string
+        blogPost:
+          type: string
+        comments:
+          type: integer
+          format: int32
+      example:
+        category: career
+        writtenBy: Pete
+        title: Back-end engineering with Express
+        blogPost: It amazing that as a web developer, I am able to use my JavaScript skills to build a server
+        comments: 10
+    UpdateBlogRequest:
+      title: UpdateBlogRequest
+      required:
+      - category
+      - writtenBy
+      - title
+      - blogPost
+      - comments
+      type: object
+      properties:
+        category:
+          type: string
+        writtenBy:
+          type: string
+        title:
+          type: string
+        blogPost:
+          type: string
+        comments:
+          type: integer
+          format: int32
+      example:
+        category: book review
+        writtenBy: Jane Doe
+        title: Back-end engineering with Express
+        blogPost: It amazing that as a web developer, I am able to use my JavaScript skills to build a server
+        comments: 10
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Blogs
+  description: ''
