@@ -69,7 +69,8 @@ const deleteBlog = async (req, res) => {
   if (!blog) {
     throw new NotFoundError(`No blog with id ${blogId}`);
   }
-  res.status(StatusCodes.OK).end();
+  res.status(StatusCodes.OK).json({ msg: 'The entry was deleted.' });
+  // res.status(StatusCodes.OK).end();
 
   // res.send('delete blog');
 };
